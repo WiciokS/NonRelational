@@ -10,9 +10,7 @@ namespace NonRelational.Pages
 
         public void OnGet()
         {
-            // Populate the topics, for example from a database or any other source
-            NonRelational.Database.Database db = new ("Database/TriviaGame.db");
-            Topics = db.GetThemes();
+            Topics = Global.database.GetThemes();
         }
     }
 }
