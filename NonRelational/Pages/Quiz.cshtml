@@ -10,10 +10,9 @@
 <!-- Display the CurrentQuestionIndex for debugging -->
 <p>Current Question Index: @Model.CurrentQuestionIndex / @Model.SelectedTheme.Questions.Length</p>
 
-@if (Model.CurrentQuestion != null)
+@if (Model.SelectedTheme.Questions[Model.CurrentQuestionIndex] != null)
 {
     <form method="post">
-        <input type="hidden" asp-for="CurrentQuestionIndex" />
         <input type="hidden" asp-for="SelectedAnswer" />
 
         <div id="question">
@@ -26,7 +25,7 @@
             }
         </div>
         <div id="next-question">
-            <button type="submit" disabled>Next</button>
+            <button type="button" class="next-btn" onclick="nextQuestion(this)">Next</button>
         </div>
     </form>
 }
@@ -42,7 +41,7 @@
             button.classList.add('selected');
 
             // Check if the answer is correct and apply the appropriate class
-            let isCorrect = '@Model.CurrentQuestion.Answers.FirstOrDefault(a => a.IsCorrect)?.Answer' === answer;
+            let isCorrect = '@Model.SelectedTheme.Questions[Model.CurrentQuestionIndex].Answers.FirstOrDefault(a => a.IsCorrect)?.Answer' === answer;
             button.classList.add(isCorrect ? 'correct' : 'incorrect');
 
             // Enable the Next button
@@ -53,10 +52,23 @@
             } else {
                 // Show the correct answer
                 let correctBtn = [...document.querySelectorAll('.answer-btn')]
-                    .find(btn => btn.textContent === '@Model.CurrentQuestion.Answers.FirstOrDefault(a => a.IsCorrect)?.Answer');
+                    .find(btn => btn.textContent === '@Model.SelectedTheme.Questions[Model.CurrentQuestionIndex].Answers.FirstOrDefault(a => a.IsCorrect)?.Answer');
                 correctBtn.classList.add('correct');
             }
         }
+        function nextQuestion(button) {
+            // Increment the current question index
+            document.getElementById('SelectedAnswer').value = '';
+            document.querySelector('#next-question button').disabled = true;
+            document.querySelectorAll('.answer-btn').forEach(btn => {
+                btn.classList.remove('selected', 'correct', 'incorrect');
+                btn.disabled = false;
+            });
+            Model.CurrentQuestionIndex += 1;
+        }
+
+        // Disable the Next button until an answer is selected
+        document.querySelector('#next-question button').disabled = true;
     </script>
     <style>
         .correct {

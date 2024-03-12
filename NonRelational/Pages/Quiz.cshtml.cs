@@ -18,29 +18,7 @@ namespace NonRelational.Pages
         public void OnGet(string theme)
         {
             SelectedTheme = Global.database.GetTheme(theme);
-            CurrentQuestion = SelectedTheme?.Questions.ElementAtOrDefault(CurrentQuestionIndex);
-        }
-
-        public IActionResult OnPost(string theme)
-        {
-            SelectedTheme = Global.database.GetTheme(theme);
-            CurrentQuestion = SelectedTheme?.Questions.ElementAtOrDefault(CurrentQuestionIndex);
-            if (SelectedAnswer == CurrentQuestion?.Answers.FirstOrDefault(a => a.IsCorrect)?.Answer)
-            {
-                Score++;
-                // You can add logic here to keep track of which questions were answered correctly
-            }
-
-            CurrentQuestionIndex++;
-
-            if (CurrentQuestionIndex >= SelectedTheme.Questions.Length)
-            {
-                return RedirectToPage("/Results", new { score = Score, total = SelectedTheme.Questions.Length });
-            }
-
-            CurrentQuestion = SelectedTheme?.Questions.ElementAtOrDefault(CurrentQuestionIndex);
-
-            return Page();
+            System.Diagnostics.Debug.WriteLine(CurrentQuestionIndex);
         }
     }
 }
