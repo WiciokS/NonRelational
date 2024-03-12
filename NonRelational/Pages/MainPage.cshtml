@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "/"
 @model MainPageModel
 
 @{
@@ -11,7 +11,7 @@
     @foreach (var topic in Model.Topics)
     {
         <li>
-            <a asp-page="/Quiz" asp-route-topic="@topic.Id">@topic.Name</a>
+            <a asp-page="/Quiz" asp-route-topic="@topic.Theme">@topic.Theme</a>
         </li>
     }
 </ul>
