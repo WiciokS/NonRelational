@@ -1,0 +1,18 @@
+﻿@page
+@model MainPageModel
+
+@{
+    ViewData["Title"] = "Quiz Topics";
+}
+
+<h2>Quiz Topics</h2>
+
+<ul>
+    @foreach (var topic in Model.Topics)
+    {
+        <li>
+            <a asp-page="/Quiz" asp-route-topic="@topic.Id">@topic.Name</a>
+        </li>
+    }
+</ul>
+
