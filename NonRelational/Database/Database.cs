@@ -12,6 +12,12 @@ namespace NonRelational.Database
             LiteDatabase.GetCollection<ThemeObject>("themes").EnsureIndex(x => x.Theme);
         }
 
+        public List<ThemeObject> GetThemes()
+        {
+            var collection = LiteDatabase.GetCollection<ThemeObject>("themes");
+            return collection.FindAll().ToList();
+        }
+
         public ThemeObject GetTheme(string theme)
         {
             var collection = LiteDatabase.GetCollection<ThemeObject>("themes");
