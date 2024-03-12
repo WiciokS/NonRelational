@@ -4,12 +4,15 @@ namespace NonRelational.Database
 {
     public class Database
     {
-        public LiteDatabase LiteDatabase { get; private set; }
+        public LiteDatabase LiteDatabase { get; private set; } = null;
 
         public Database(string connectionString)
         {
-            LiteDatabase = new LiteDatabase(connectionString);
-            LiteDatabase.GetCollection<ThemeObject>("themes").EnsureIndex(x => x.Theme);
+            if (LiteDatabase == null)
+            {
+                LiteDatabase = new LiteDatabase(connectionString);
+                LiteDatabase.GetCollection<ThemeObject>("themes").EnsureIndex(x => x.Theme);
+            }
         }
 
         public List<ThemeObject> GetThemes()
