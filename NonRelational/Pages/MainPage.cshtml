@@ -11,7 +11,7 @@
     @foreach (var topic in Model.Topics)
     {
         <li>
-            <a asp-page="/Quiz" asp-route-topic="@topic.Theme">@topic.Theme</a>
+            <a asp-page="/Quiz" asp-route-theme="@topic.Theme">@topic.Theme</a>
         </li>
     }
 </ul>
