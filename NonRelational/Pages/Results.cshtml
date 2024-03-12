@@ -1,0 +1,16 @@
+﻿@page
+@model ResultsModel
+
+@{
+    ViewData["Title"] = "Quiz Results";
+}
+
+<h2>Quiz Results</h2>
+
+<p>You scored @Model.Score out of @Model.TotalQuestions.</p>
+<p>Your score is @Model.Percentage.ToString("0.00")%.</p>
+
+<!-- You can add a link to return to the main page or exit -->
+<p>
+    <a asp-page="/MainPage">Try another quiz</a>
+</p>

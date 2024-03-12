@@ -7,9 +7,13 @@
 
 <h2>@Model.SelectedTheme?.Theme</h2>
 
+<!-- Display the CurrentQuestionIndex for debugging -->
+<p>Current Question Index: @Model.CurrentQuestionIndex / @Model.SelectedTheme.Questions.Length</p>
+
 @if (Model.CurrentQuestion != null)
 {
     <form method="post">
+        <input type="hidden" asp-for="CurrentQuestionIndex" />
         <input type="hidden" asp-for="SelectedAnswer" />
 
         <div id="question">
