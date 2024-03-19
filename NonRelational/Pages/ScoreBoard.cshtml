@@ -17,6 +17,9 @@
                     <a href="?sortBy=TotalGamesPlayed&sortDescending=@(!Model.SortDescending)">Total Games Played</a>
                 </th>
                 <th>
+                    <a href="?sortBy=TotalScore&sortDescending=@(!Model.SortDescending)">Total Score</a>
+                </th>
+                <th>
                     <a href="?sortBy=LastPlayed&sortDescending=@(!Model.SortDescending)">Last Played</a>
                 </th>
             </tr>
@@ -29,6 +32,7 @@
                     <td>@entry.Theme</td>
                     <td>@Model.CalculateAverageScore(entry)</td>
                     <td>@Model.GetTotalGamesPlayed(entry)</td>
+                    <td>@Model.CalculateTotalScore(entry)</td>
                     <td>@entry.LastPlayed.ToString("g")</td>
                 </tr>
             }

@@ -12,7 +12,7 @@ namespace NonRelational.Pages
         public string SortBy { get; set; }
         public bool SortDescending { get; set; }
 
-        public void OnGet(string sortBy = "TotalGamesPlayed", bool sortDescending = true)
+        public void OnGet(string sortBy = "TotalScore", bool sortDescending = true)
         {
             SortBy = sortBy;
             SortDescending = sortDescending;
@@ -38,6 +38,12 @@ namespace NonRelational.Pages
                 case "TotalGamesPlayed":
                     return descending ? entries.OrderByDescending(GetTotalGamesPlayed).ToList()
                                       : entries.OrderBy(GetTotalGamesPlayed).ToList();
+                case "TotalScore":
+                    return descending ? entries.OrderByDescending(CalculateTotalScore).ToList()
+                                      : entries.OrderBy(CalculateTotalScore).ToList();
+                case "LastPlayed":
+                    return descending ? entries.OrderByDescending(e => e.LastPlayed).ToList()
+                                      : entries.OrderBy(e => e.LastPlayed).ToList();
                 default:
                     return entries; // No sorting or default sorting
             }
@@ -56,6 +62,14 @@ namespace NonRelational.Pages
         public int GetTotalGamesPlayed(ScoreBoardEntryObject entry)
         {
             return entry.Scores.Length;
+        }
+
+        public double CalculateTotalScore(ScoreBoardEntryObject entry)
+        {
+            int totalGames = GetTotalGamesPlayed(entry);
+            double averageScore = CalculateAverageScore(entry);
+
+            return averageScore * totalGames;
         }
     }
 }
