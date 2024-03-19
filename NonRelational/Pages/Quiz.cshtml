@@ -6,14 +6,14 @@
     ViewData["Title"] = "Quiz - " + Model.SelectedTheme?.Theme;
 }
 
-<h2>@Model.SelectedTheme?.Theme</h2>
+<h2 class="Center">@Model.SelectedTheme?.Theme</h2>
 
 <!-- Placeholders for dynamic content -->
-<div id="counter"></div>
-<div id="score"></div>
-<div id="question"></div>
+<div id="counter" class="Center"></div>
+<div id="score" class="Center"></div>
+<div id="question" class="Center"></div>
 <div id="answers"></div>
-<button type="button" id="next-question" class="next-btn" onclick="nextQuestion()">Next</button>
+<button type="button" id="next-question" class="next-btn center-btn" onclick="nextQuestion()">Next</button>
 
 
 @section Scripts {
@@ -102,16 +102,65 @@
         }
     </script>
     <style>
+        .answer-btn {
+            /* Basic styling for answer buttons */
+            padding: 10px 20px;
+            margin: 5px;
+            border: 2px solid transparent; /* Prepare for selected state */
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+            .selected, .answer-btn:focus {
+                /* Style for selected or focused buttons */
+                font-weight: bold;
+                border-color: #007bff; /* Highlight border for selected/focused button */
+                color: #007bff;
+            }
+
         .correct {
+            /* Style for correct answers */
             background-color: green;
+            color: white;
         }
 
         .incorrect {
+            /* Style for incorrect answers */
             background-color: red;
+            color: white;
         }
 
-        .selected {
-            font-weight: bold;
+        #next-question {
+            /* Styling for the 'Next' button */
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
+
+            #next-question:disabled {
+                /* Style for disabled 'Next' button */
+                background-color: #ccc;
+                cursor: not-allowed;
+            }
+
+        .Center {
+            display: flex; /* Enables flexbox layout */
+            flex-direction: column; /* Stack items vertically */
+            align-items: center; /* Center items along the cross axis (horizontally) */
+        }
+
+        .center-btn {
+            display: flex; /* Use flexbox for alignment */
+            justify-content: center; /* Center children horizontally */
+            width: 100%; /* Ensure the div takes up full width */
+        }
+
     </style>
 }
