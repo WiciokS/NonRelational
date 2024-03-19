@@ -41,6 +41,9 @@ namespace NonRelational.Pages
                 case "TotalScore":
                     return descending ? entries.OrderByDescending(CalculateTotalScore).ToList()
                                       : entries.OrderBy(CalculateTotalScore).ToList();
+                case "LastPlayed":
+                    return descending ? entries.OrderByDescending(e => e.LastPlayed).ToList()
+                                      : entries.OrderBy(e => e.LastPlayed).ToList();
                 default:
                     return entries; // No sorting or default sorting
             }
