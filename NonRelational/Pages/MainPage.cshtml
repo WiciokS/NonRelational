@@ -5,7 +5,40 @@
     ViewData["Title"] = "Quiz Topics";
 }
 
-<h2>Quiz Topics</h2>
+<h2>
+    @{
+        int i = 0;
+        foreach (char letter in "Quiz Topics")
+        {
+            if (letter == ' ')
+            {
+                <span>@Html.Raw("&nbsp;")</span>
+            }
+            else
+            {
+                <span class="bounce" style="--i: @i">@letter</span>
+                i++;
+            }
+        }
+    }
+</h2>
+<style>
+    @@keyframes bounce {
+        0%, 100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-10px);
+        }
+    }
+
+    h2 span.bounce {
+        display: inline-block;
+        animation: bounce 0.6s ease infinite;
+        animation-delay: calc(var(--i) * 0.1s);
+    }
+</style>
 
 <ul class="AddStyle">
     @foreach (var topic in Model.Topics)
@@ -49,6 +82,7 @@
             background-color: #e2e6ea; /* Slightly darker background on hover */
             text-decoration: none;
         }
+
 </style>
 
 
