@@ -16,10 +16,10 @@ namespace NonRelational.Pages
         {
             if (entry.Scores == null || !entry.Scores.Any())
             {
-                return 0; // Or handle this however you think is appropriate
+                return 0;
             }
 
-            return entry.Scores.Average();
+            return Double.Round(entry.Scores.Average(), 2);
         }
 
         public int GetTotalGamesPlayed(ScoreBoardEntryObject entry)
