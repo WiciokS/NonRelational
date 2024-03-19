@@ -7,10 +7,10 @@
 
 <h2>Quiz Topics</h2>
 
-<ul>
+<ul class="AddStyle">
     @foreach (var topic in Model.Topics)
     {
-        <li>
+        <li class="TheList">
             <a asp-page="/Quiz" asp-route-theme="@topic.Theme">@topic.Theme</a>
         </li>
     }
@@ -21,13 +21,13 @@
         text-align: center;
     }
 
-    ul {
+    .AddStyle {
         list-style-type: none;
         padding: 0;
         margin: 0;
     }
 
-    li {
+    .TheList {
         margin: 10px 0; /* Add some space around each item */
         display: flex; /* Enables flexbox layout */
         flex-direction: column; /* Stack items vertically */
