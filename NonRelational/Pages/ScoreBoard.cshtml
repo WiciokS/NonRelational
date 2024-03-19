@@ -5,12 +5,12 @@
             @foreach (var entry in Model.ScoreBoardEntries)
         {
                 <li>
-                    <div id="entryContainer">
-                        <div>@entry.Username</div> 
-                        <div>@entry.Theme</div>
-                        <div>@Model.CalculateAverageScore(entry)</div>
-                        <div>@Model.GetTotalGamesPlayed(entry)</div> 
-                        <div>@entry.LastPlayed</div>
+                    <div class="entryContainer">
+                    <span class="entry">@entry.Username</span>
+                    <span class="entry">@entry.Theme</span>
+                    <span class="entry">@Model.CalculateAverageScore(entry)%</span>
+                    <span class="entry">@Model.GetTotalGamesPlayed(entry) Games</span>
+                    <span class="entry">@entry.LastPlayed.ToString("g")</span>
                     </div>
                 </li>
         }
@@ -18,9 +18,20 @@
 }
 
 <style>
-    #entryContainer > div {
-        display: inline-block; /* This will make each div appear in-line */
-        margin-right: 10px; /* This adds some spacing between the divs */
-        white-space: nowrap; /* Prevents the content from wrapping */
+    .entryContainer {
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #f2f2f2; /* Light grey background */
+        border: 1px solid #dcdcdc; /* Light grey border */
+        border-radius: 8px; /* Rounded corners for the box */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    }
+
+    .entry {
+        display: inline-block;
+        margin-right: 15px;
+        padding: 2px 5px;
+        white-space: nowrap;
+        vertical-align: top;
     }
 </style>
