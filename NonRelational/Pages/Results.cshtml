@@ -10,6 +10,11 @@
 <p>You scored @Model.Score out of @Model.TotalQuestions.</p>
 <p>Your score is @Model.Percentage.ToString("0.00")%.</p>
 
+<div class="congrats-horns">
+    <img src="~/css/Images/left-horn.png" alt="Congratulations" class="left-horn">
+    <img src="~/css/Images/right-horn.png" alt="Congratulations" class="right-horn">
+</div>
+
 <form method="post">
     <input type="hidden" name="theme" value="@Model.Theme" />
     <input type="hidden" name="percentage" value="@Model.Percentage" />
@@ -19,8 +24,6 @@
         <button type="submit">Submit</button>
     </div>
 </form>
-
-
 
 
 <p>
@@ -38,6 +41,7 @@
         align-items: center;
         gap: 10px; /* Adjust the space between form elements */
         margin-top: 20px;
+        margin-bottom: 20px;
     }
 
     input[type="text"], button {
@@ -79,5 +83,32 @@
             background-color: #e2e6ea;
             text-decoration: none;
         }
+
+    .congrats-horns {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px; /* Adjust based on your layout */
+    }
+
+    .left-horn, .right-horn {
+        width: 100px; /* Adjust based on your image size */
+        animation: slideIn 2s ease-out forwards;
+    }
+
+    .left-horn {
+        transform: translateX(-100%);
+    }
+
+    .right-horn {
+        transform: translateX(100%);
+    }
+
+    @@keyframes slideIn {
+        to {
+            transform: translateX(0);
+        }
+    }
 </style>
 
