@@ -32,6 +32,31 @@
     <img src="~/css/Images/right-horn.png" alt="Congratulations" class="right-horn">
 </div>
 
+<audio id="horn-sound" src="~/css/Sound/win31.ogv" preload="auto"></audio>
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const leftHorn = document.querySelector('.left-horn');
+        const rightHorn = document.querySelector('.right-horn');
+        const hornSound = document.getElementById('horn-sound');
+
+        // Assuming both horns have the same animation duration and delay.
+        const playSoundAfterAnimation = () => {
+            hornSound.play();
+        };
+
+        // You would attach this handler to whichever element's animation signifies the horns are fully "presented".
+        leftHorn.addEventListener('animationend', playSoundAfterAnimation);
+        // If the right horn's animation ends at a different time and you want the sound there, add another listener.
+        rightHorn.addEventListener('animationend', playSoundAfterAnimation);
+
+    });
+
+</script>
+
+
 <style>
     h2, p {
         text-align: center;
