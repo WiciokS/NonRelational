@@ -21,5 +21,10 @@ namespace NonRelational.Pages
 
             return entry.Scores.Average();
         }
+
+        public int GetTotalGamesPlayed(ScoreBoardEntryObject entry)
+        {
+            return entry.Scores.Length;
+        }
     }
 }
