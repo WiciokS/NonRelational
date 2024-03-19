@@ -10,10 +10,7 @@
 <p>You scored @Model.Score out of @Model.TotalQuestions.</p>
 <p>Your score is @Model.Percentage.ToString("0.00")%.</p>
 
-<div class="congrats-horns">
-    <img src="~/css/Images/left-horn.png" alt="Congratulations" class="left-horn">
-    <img src="~/css/Images/right-horn.png" alt="Congratulations" class="right-horn">
-</div>
+
 
 <form method="post">
     <input type="hidden" name="theme" value="@Model.Theme" />
@@ -29,6 +26,11 @@
 <p>
     <a asp-page="/MainPage">Try another quiz</a>
 </p>
+
+<div class="congrats-horns">
+    <img src="~/css/Images/left-horn.png" alt="Congratulations" class="left-horn">
+    <img src="~/css/Images/right-horn.png" alt="Congratulations" class="right-horn">
+</div>
 
 <style>
     h2, p {
@@ -85,15 +87,17 @@
         }
 
     .congrats-horns {
-        position: relative;
-        width: 100%;
         display: flex;
         justify-content: space-between;
-        margin-bottom: 20px; /* Adjust based on your layout */
+        align-items: center; /* Align images vertically */
+        flex-wrap: wrap; /* Allow items to wrap if needed */
+        margin-bottom: 20px;
     }
 
     .left-horn, .right-horn {
-        width: 100px; /* Adjust based on your image size */
+        width: 100px; /* Ensure this matches the actual image size */
+        display: block; /* Make sure images are block-level elements */
+        margin: 0 auto; /* Center images if they are on their own line */
         animation: slideIn 2s ease-out forwards;
     }
 
