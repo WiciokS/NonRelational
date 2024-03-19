@@ -102,10 +102,17 @@
         }
     </script>
     <style>
+        #answers {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Creates two columns of equal width */
+            gap: 10px; /* Adjusts the gap between the buttons */
+            margin: auto; /* Center the grid container */
+        }
+
         .answer-btn {
-            /* Basic styling for answer buttons */
+            width: 100%; /* Makes each button full width within its grid cell */
             padding: 10px 20px;
-            margin: 5px;
+            margin: 0; /* Adjust or remove margin based on layout */
             border: 2px solid transparent; /* Prepare for selected state */
             border-radius: 5px;
             background-color: #f0f0f0;
