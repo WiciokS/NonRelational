@@ -13,10 +13,13 @@
 <form method="post">
     <input type="hidden" name="theme" value="@Model.Theme" />
     <input type="hidden" name="percentage" value="@Model.Percentage" />
-    <label for="username">Enter your username:</label>
-    <input type="text" id="username" name="username" required>
-    <button type="submit">Submit</button>
+    <div class="form-container">
+        <label for="username">Enter your username:</label>
+        <input type="text" id="username" name="username" required>
+        <button type="submit">Submit</button>
+    </div>
 </form>
+
 
 
 
@@ -25,13 +28,42 @@
 </p>
 
 <style>
-    h2 {
+    h2, p {
         text-align: center;
     }
 
-    p {
-        text-align: center;
+    .form-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px; /* Adjust the space between form elements */
+        margin-top: 20px;
     }
+
+    input[type="text"], button {
+        padding: 10px;
+        border: 2px solid #007bff; /* A blue border color */
+        border-radius: 5px; /* Rounded corners */
+        outline: none; /* Removes the outline to make it look better */
+        font-size: 16px; /* Larger font size for better readability */
+    }
+
+    input[type="text"] {
+        width: calc(100% - 24px); /* Full width minus padding and border */
+        max-width: 300px; /* Maximum width of the input field */
+    }
+
+    button {
+        background-color: #007bff; /* Blue background */
+        color: white; /* White text */
+        cursor: pointer; /* Changes the cursor to a pointer */
+        transition: background-color 0.3s ease; /* Smooth background color transition */
+    }
+
+        button:hover {
+            background-color: #0056b3; /* Darker shade of blue on hover */
+        }
+
     a {
         text-decoration: none;
         color: #000000;
@@ -42,9 +74,10 @@
         transition: all 0.3s ease;
     }
 
-    a:hover {
-        color: #0056b3;
-        background-color: #e2e6ea;
-        text-decoration: none;
-    }
+        a:hover {
+            color: #0056b3;
+            background-color: #e2e6ea;
+            text-decoration: none;
+        }
 </style>
+
