@@ -68,7 +68,7 @@
                 // No more questions or invalid index, prepare to redirect
                 var totalQuestions = themeData.questions.length;
                 // Construct the URL for the results page with query parameters for score and total questions
-                var resultsUrl = `/Results?score=${score}&total=${totalQuestions}`;
+                var resultsUrl = `/Results?score=${score}&total=${totalQuestions}&theme=${themeData.theme}`;
                 // Redirect to the results page
                 window.location.href = resultsUrl;
                 return;

@@ -10,6 +10,15 @@
 <p>You scored @Model.Score out of @Model.TotalQuestions.</p>
 <p>Your score is @Model.Percentage.ToString("0.00")%.</p>
 
+<form method="post">
+    <input type="hidden" name="theme" value="@Model.Theme" />
+    <input type="hidden" name="percentage" value="@Model.Percentage" />
+    <label for="username">Enter your username:</label>
+    <input type="text" id="username" name="username" required>
+    <button type="submit">Submit</button>
+</form>
+
+
 
 <p>
     <a asp-page="/MainPage">Try another quiz</a>

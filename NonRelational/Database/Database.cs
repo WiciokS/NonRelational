@@ -27,6 +27,24 @@ namespace NonRelational.Database
             return collection.FindOne(x => x.Theme == theme);
         }
 
+        public List<ScoreBoardEntryObject> GetScoreBoardList()
+        {
+            var collection = LiteDatabase.GetCollection<ScoreBoardEntryObject>("scoreboard");
+            return collection.FindAll().ToList();
+        }
+
+        public void InsertScoreBoardEntry(ScoreBoardEntryObject entry)
+        {
+            var collection = LiteDatabase.GetCollection<ScoreBoardEntryObject>("scoreboard");
+            collection.Insert(entry);
+        }
+
+        public void UpdateScoreBoardEntry(ScoreBoardEntryObject entry)
+        {
+            var collection = LiteDatabase.GetCollection<ScoreBoardEntryObject>("scoreboard");
+            collection.Update(entry);
+        }
+
         public void InsertTheme(ThemeObject theme)
         {
             var collection = LiteDatabase.GetCollection<ThemeObject>("themes");

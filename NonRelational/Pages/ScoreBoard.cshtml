@@ -1,4 +1,14 @@
 ﻿@page
 @model ScoreBoardModel
 @{
+        <ul>
+            @foreach (var entry in Model.ScoreBoardEntries)
+        {
+                <li>
+                    <div>
+                        @entry.Username | @entry.Theme | @Model.CalculateAverageScore(entry) | @entry.LastPlayed
+                    </div>
+                </li>
+        }
+        </ul>
 }
