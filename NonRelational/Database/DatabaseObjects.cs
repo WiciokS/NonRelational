@@ -17,4 +17,12 @@
         public string Theme { get; set; }
         public QuestionObject[] Questions { get; set; }
     }
+
+    public class ScoreBoardEntryObject
+    {
+        public string Username { get; set; }
+        public string Theme { get; set; }
+        public float AverageScore { get; set; }
+        public DateTime LastPlayed { get; set; }
+    }
 }
