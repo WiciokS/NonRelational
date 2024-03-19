@@ -41,30 +41,59 @@
 }
 
 <style>
-    <style >
+    /* Overall table styles */
     table {
         width: 100%;
         border-collapse: collapse;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+        background-color: white; /* White background for a clean look */
+        margin-top: 20px; /* Space from the top */
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+        overflow: hidden; /* Ensures the box shadow is visible */
     }
 
-    th, td {
-        border: 1px solid #ddd; /* Adds a border to each cell */
-        padding: 8px; /* Adds padding inside each cell */
-        text-align: left; /* Aligns text to the left */
+    /* Header styles */
+    thead {
+        background-color: #343a40; /* A darker shade for strong contrast */
+        color: black; /* White text for contrast */
+        text-transform: uppercase; /* Capital letters for the header for added visibility */
+        font-size: 1.1em; /* Slightly larger font size */
     }
 
     th {
-        background-color: #f4f4f4; /* A light grey background for headers */
-        color: #333; /* Dark text for contrast */
+        text-align: left;
+        padding: 12px 15px; /* More padding for a spacious layout */
+        font-weight: bold; /* Bold font weight for header */
+        letter-spacing: 1px; /* Space out the letters to improve readability */
+        border-bottom: 2px solid #dee2e6; /* Solid line to distinguish header from body */
     }
 
-    tr:nth-child(even) {
-        background-color: #f9f9f9; /* Zebra striping for rows */
+        /* Hover effect for the header */
+        th:hover {
+            background-color: #495057; /* A shade lighter than header background */
+            cursor: pointer; /* Indicates that the header is clickable */
+            transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+        }
+
+            th:hover a {
+                color: white; /* White text on hover for the link */
+            }
+
+        /* Header links */
+        th a {
+            color: black; /* White text links in the header */
+            text-decoration: none; /* No underlines on links */
+            display: block; /* Make the links fill the cell for a larger click area */
+            transition: all 0.3s ease-in-out; /* Smooth transition for hover effect */
+        }
+
+    /* Zebra-striping for rows and hover effect */
+    tr:nth-child(odd) {
+        background-color: #f8f9fa; /* Light grey zebra striping */
     }
 
     tr:hover {
-        background-color: #f1f1f1; /* Highlight on hover for each row */
+        background-color: #e9ecef; /* Very light grey for row hover */
     }
-</style>
 
 </style>
