@@ -1,74 +1,173 @@
 ﻿@page
 @model QuizModel
+@using System.Text.Json;
 
 @{
     ViewData["Title"] = "Quiz - " + Model.SelectedTheme?.Theme;
 }
 
-<h2>@Model.SelectedTheme?.Theme</h2>
+<h2 class="Center">@Model.SelectedTheme?.Theme</h2>
 
-<!-- Display the CurrentQuestionIndex for debugging -->
-<p>Current Question Index: @Model.CurrentQuestionIndex / @Model.SelectedTheme.Questions.Length</p>
+<!-- Placeholders for dynamic content -->
+<div id="counter" class="Center"></div>
+<div id="score" class="Center"></div>
+<div id="question" class="Center"></div>
+<div id="answers"></div>
+<button type="button" id="next-question" class="next-btn center-btn" onclick="nextQuestion()">Next</button>
 
-@if (Model.CurrentQuestion != null)
-{
-    <form method="post">
-        <input type="hidden" asp-for="CurrentQuestionIndex" />
-        <input type="hidden" asp-for="SelectedAnswer" />
-
-        <div id="question">
-            <p>@Model.CurrentQuestion.Question</p>
-        </div>
-        <div id="answers">
-            @foreach (var answer in Model.CurrentQuestion.Answers)
-            {
-                <button type="button" class="answer-btn" onclick="selectAnswer(this, '@answer.Answer')">@answer.Answer</button>
-            }
-        </div>
-        <div id="next-question">
-            <button type="submit" disabled>Next</button>
-        </div>
-    </form>
-}
 
 @section Scripts {
     <script>
+        var themeData = @Html.Raw(Json.Serialize(Model.SelectedTheme));
+        var currentQuestionIndex = 0; // Start with the first question
+        var score = 0;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            processQuestion(currentQuestionIndex);
+        });
+
         function selectAnswer(button, answer) {
+            var correctAnswer = themeData.questions[currentQuestionIndex].answers.find(a => a.isCorrect).answer;
+            var isCorrect = answer === correctAnswer;
+
             // Clear any previous selection
             document.querySelectorAll('.answer-btn').forEach(btn => btn.disabled = true);
 
             // Mark the button as selected
-            document.getElementById('SelectedAnswer').value = answer;
             button.classList.add('selected');
 
             // Check if the answer is correct and apply the appropriate class
-            let isCorrect = '@Model.CurrentQuestion.Answers.FirstOrDefault(a => a.IsCorrect)?.Answer' === answer;
             button.classList.add(isCorrect ? 'correct' : 'incorrect');
 
             // Enable the Next button
-            document.querySelector('#next-question button').disabled = false;
+            document.querySelector('#next-question').disabled = false;
 
             if (isCorrect) {
-                // Increment score (handled on the server-side in the OnPost method)
+                // Increment score
+                score++;
+                console.log("Score: " + score); // Optional: for debugging
             } else {
-                // Show the correct answer
-                let correctBtn = [...document.querySelectorAll('.answer-btn')]
-                    .find(btn => btn.textContent === '@Model.CurrentQuestion.Answers.FirstOrDefault(a => a.IsCorrect)?.Answer');
-                correctBtn.classList.add('correct');
+                // Optionally show the correct answer
+                themeData.questions[currentQuestionIndex].answers.forEach(answer => {
+                    if (answer.isCorrect) {
+                        [...document.querySelectorAll('.answer-btn')].forEach(btn => {
+                            if (btn.innerText === answer.answer) {
+                                btn.classList.add('correct');
+                            }
+                        });
+                    }
+                });
             }
+        }
+        function nextQuestion(button) {
+            currentQuestionIndex += 1; // Move to the next question
+            processQuestion(currentQuestionIndex);
+        }
+        function processQuestion(index) {
+            if (index >= themeData.questions.length) {
+                // No more questions or invalid index, prepare to redirect
+                var totalQuestions = themeData.questions.length;
+                // Construct the URL for the results page with query parameters for score and total questions
+                var resultsUrl = `/Results?score=${score}&total=${totalQuestions}`;
+                // Redirect to the results page
+                window.location.href = resultsUrl;
+                return;
+            }
+
+            var questionData = themeData.questions[index];
+
+            // Update question text
+            document.getElementById('question').innerHTML = `<p>${questionData.question}</p>`;
+
+            // Clear and repopulate answers
+            var answersDiv = document.getElementById('answers');
+            answersDiv.innerHTML = ''; // Clear existing answers
+            questionData.answers.forEach(answer => {
+                var button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'answer-btn';
+                button.innerText = answer.answer;
+                button.onclick = function () { selectAnswer(this, answer.answer); };
+                answersDiv.appendChild(button);
+            });
+
+            // Update counter
+            document.getElementById('counter').innerHTML = `<p>Question ${index + 1} of ${themeData.questions.length}</p>`;
+
+            // Update score
+            document.getElementById('score').innerHTML = `<p>Score: ${score}</p>`;
+
+            // Disable the Next button
+            document.querySelector('#next-question').disabled = true;
         }
     </script>
     <style>
+        #answers {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* Creates two columns of equal width */
+            gap: 10px; /* Adjusts the gap between the buttons */
+            margin: auto; /* Center the grid container */
+        }
+
+        .answer-btn {
+            width: 100%; /* Makes each button full width within its grid cell */
+            padding: 10px 20px;
+            margin: 0; /* Adjust or remove margin based on layout */
+            border: 2px solid transparent; /* Prepare for selected state */
+            border-radius: 5px;
+            background-color: #f0f0f0;
+            color: #333;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+            .selected, .answer-btn:focus {
+                /* Style for selected or focused buttons */
+                font-weight: bold;
+                border-color: #007bff; /* Highlight border for selected/focused button */
+                color: #007bff;
+            }
+
         .correct {
+            /* Style for correct answers */
             background-color: green;
+            color: white;
         }
 
         .incorrect {
+            /* Style for incorrect answers */
             background-color: red;
+            color: white;
         }
 
-        .selected {
-            font-weight: bold;
+        #next-question {
+            /* Styling for the 'Next' button */
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
+
+            #next-question:disabled {
+                /* Style for disabled 'Next' button */
+                background-color: #ccc;
+                cursor: not-allowed;
+            }
+
+        .Center {
+            display: flex; /* Enables flexbox layout */
+            flex-direction: column; /* Stack items vertically */
+            align-items: center; /* Center items along the cross axis (horizontally) */
+        }
+
+        .center-btn {
+            display: flex; /* Use flexbox for alignment */
+            justify-content: center; /* Center children horizontally */
+            width: 100%; /* Ensure the div takes up full width */
+        }
+
     </style>
 }
