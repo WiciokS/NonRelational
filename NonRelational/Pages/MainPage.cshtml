@@ -10,9 +10,7 @@
 <ul>
     @foreach (var topic in Model.Topics)
     {
-        <li>
-            <a asp-page="/Quiz" asp-route-theme="@topic.Theme">@topic.Theme</a>
-        </li>
+        <a asp-page="/Quiz" asp-route-theme="@topic.Theme">@topic.Theme</a>
     }
 </ul>
 <style>
@@ -27,14 +25,11 @@
         margin: 0;
     }
 
-    li {
+    a {
         margin: 10px 0; /* Add some space around each item */
         display: flex; /* Enables flexbox layout */
         flex-direction: column; /* Stack items vertically */
         align-items: center; /* Center items along the cross axis (horizontally) */
-    }
-
-    a {
         text-decoration: none; /* Remove underline */
         color: #000000; /* Link color */
         background-color: #f8f9fa; /* Light background color */
