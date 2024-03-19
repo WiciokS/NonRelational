@@ -11,7 +11,7 @@ namespace NonRelational.Pages
 
         public void OnGet(string theme)
         {
-            SelectedTheme = Global.database.GetTheme(theme);
+            SelectedTheme = Global.Database.GetTheme(theme);
         }
     }
 }

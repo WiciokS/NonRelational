@@ -2,6 +2,6 @@
 {
     public class Global
     {
-        public static Database.Database database = new("Database/TriviaGame.db");
+        public static Database.Database Database;
     }
 }

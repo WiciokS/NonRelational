@@ -10,7 +10,7 @@ namespace NonRelational.Pages
 
         public void OnGet()
         {
-            Topics = Global.database.GetThemes();
+            Topics = Global.Database.GetThemes();
         }
     }
 }
